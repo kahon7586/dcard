@@ -1,11 +1,12 @@
 import Header from "./Layouts/Header"
 import "./App.css"
+import MyContextProvider from "./Context/MyContextProvider"
 
 const App = () => {
   return (
-    <div>
+    <MyContextProvider>
       <Header />
-    </div>
+    </MyContextProvider>
   )
 }
 
