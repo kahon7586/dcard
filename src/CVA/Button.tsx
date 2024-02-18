@@ -1,5 +1,6 @@
 import { cva, VariantProps } from "class-variance-authority"
-import { ButtonHTMLAttributes, ComponentProps } from "react"
+import { IconType } from "react-icons"
+import { ButtonHTMLAttributes, ComponentProps, ReactNode } from "react"
 import { twMerge } from "tailwind-merge"
 
 const buttonStyles = cva(["transition-colors", "text-white"], {
@@ -20,13 +21,19 @@ const buttonStyles = cva(["transition-colors", "text-white"], {
   },
 })
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonStyles> {}
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonStyles> {
+  Icon?: IconType | null
+  children?: ReactNode
+}
 
-const Button = ({ variant, size, className, ...props }: ButtonProps) => {
+const Button = ({ variant, size, className, Icon = null, children, ...props }: ButtonProps) => {
   return (
     <button
       className={twMerge(buttonStyles({ variant, size }), className)}
-      {...props}></button>
+      {...props}>
+      {Icon === null ? Icon : <Icon />}
+      {children}
+    </button>
   )
 }
 
