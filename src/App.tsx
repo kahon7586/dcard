@@ -4,6 +4,7 @@ import MyContextProvider from "./Context/MyContextProvider"
 import LeftSideMenu from "./Layouts/LeftSideMenu"
 import PostBoard from "./Layouts/PostBoard"
 import RightSidebar from "./Layouts/RightSidebar"
+import { MoodBoardInfo } from "./Data/MoodBoardInfo"
 
 const App = () => {
   return (
@@ -12,7 +13,7 @@ const App = () => {
       <div className="flex justify-center items-start mx-auto">
         <LeftSideMenu />
         <PostBoard />
-        <RightSidebar />
+        <RightSidebar boardInfo={MoodBoardInfo} />
       </div>
     </MyContextProvider>
   )
