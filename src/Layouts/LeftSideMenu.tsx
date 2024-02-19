@@ -1,31 +1,27 @@
 import SideMenuSection from "../Components/SideMenu/SideMenuSection"
 import SideMenuItem from "../Components/SideMenu/SideMenuItem"
 import { generalShortCuts, trendingCategory, selectedCaregory } from "../Data/SideMenu"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import Button from "../CVA/Button"
 import { IoIosArrowForward } from "react-icons/io"
 
 const LeftSideMenu = () => {
-  const [height, setHeight] = useState(0)
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false)
   const scrollMenuRef = useRef<HTMLDivElement | null>(null)
 
-  useEffect(() => {
+  function adjustMenuHeight() {
     const menu = scrollMenuRef.current
     if (menu === null) return
     const rect = menu.getBoundingClientRect()
-    setHeight(window.innerHeight - rect.top - 1)
+    menu.style.height = `${window.innerHeight - rect.top - 1}px`
+  }
 
-    //fix sidemenu responsive
-
+  useEffect(() => {
     function handler() {
-      const menu = scrollMenuRef.current
-      if (menu === null) return
-      const rect = menu.getBoundingClientRect()
+      adjustMenuHeight()
       if (window.innerWidth >= 768) {
         setIsSideMenuOpen(false)
       }
-      setHeight(window.innerHeight - rect.top - 1)
     }
 
     window.addEventListener("resize", handler)
@@ -34,6 +30,10 @@ const LeftSideMenu = () => {
       window.removeEventListener("resize", handler)
     }
   }, [])
+
+  useLayoutEffect(() => {
+    adjustMenuHeight()
+  }, [isSideMenuOpen])
 
   function clickSideMenuBtn() {
     setIsSideMenuOpen((prev) => !prev)
@@ -73,8 +73,7 @@ const LeftSideMenu = () => {
         </SideMenuSection>
         <div
           className="overflow-y-auto"
-          ref={scrollMenuRef}
-          style={{ height: height }}>
+          ref={scrollMenuRef}>
           <SideMenuSection title="Trending">
             {trendingCategory.map((item) => (
               <SideMenuItem
