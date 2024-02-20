@@ -15,6 +15,7 @@ export default {
           hover: "#002133",
           selected: "#4d7083",
           border: "#005585",
+          girl: "#f48fb1",
           "section-title": "#597a8c",
         },
       },
