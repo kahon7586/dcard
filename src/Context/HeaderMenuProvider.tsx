@@ -7,7 +7,7 @@ interface HeaderMenuProviderProps {
 
 const HeaderMenuProvider = ({ children }: HeaderMenuProviderProps) => {
   const [isToggled, setIsToogled] = useState(false)
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768)
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1024)
 
   function toggle() {
     setIsToogled((prev) => !prev)

@@ -19,7 +19,7 @@ const LeftSideMenu = () => {
   useEffect(() => {
     function handler() {
       adjustMenuHeight()
-      if (window.innerWidth >= 768) {
+      if (window.innerWidth >= 1024) {
         setIsSideMenuOpen(false)
       }
     }
@@ -41,7 +41,7 @@ const LeftSideMenu = () => {
 
   return (
     <>
-      <div className={`${isSideMenuOpen ? "hidden" : "block"} md:hidden absolute left-[-12px] top-[50%]`}>
+      <div className={`${isSideMenuOpen ? "hidden" : "block"} lg:hidden absolute left-[-12px] top-[50%]`}>
         <Button
           className="rounded-full hover:bg-dcard-hover"
           variant="ghost"
@@ -54,13 +54,13 @@ const LeftSideMenu = () => {
       <div
         className={`${
           isSideMenuOpen ? "block" : "hidden"
-        } md:hidden absolute top-0 bg-black bg-opacity-80 w-full h-full`}
+        } lg:hidden absolute top-0 bg-black bg-opacity-80 w-full h-full`}
         onClick={() => setIsSideMenuOpen(false)}></div>
 
       <aside
         className={`bg-dcard-bg absolute top-0 left-0 ${
           isSideMenuOpen ? "block" : "hidden"
-        } md:pt-6 md:block md:static`}>
+        } lg:pt-6 lg:block lg:static`}>
         <SideMenuSection>
           {generalShortCuts.map((item) => (
             <SideMenuItem

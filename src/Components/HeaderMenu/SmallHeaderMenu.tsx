@@ -12,7 +12,7 @@ const SmallHeaderMenu = ({ isSmallScreen }: SmallHeaderMenuProps) => {
 
   return (
     <ul
-      className={`absolute border rounded-lg bg-white text-nowrap right-0 md:right-[103px] top-[45px] ${
+      className={`absolute border rounded-lg bg-white text-nowrap right-0 lg:right-[103px] top-[45px] ${
         isToggled ? "block" : "hidden"
       }`}>
       <div className="absolute top-[-10px] right-[6px] w-0 h-0 border-x-[10px] border-solid border-x-transparent border-b-[10px] border-b-white" />
