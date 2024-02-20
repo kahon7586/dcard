@@ -34,7 +34,7 @@ const RightSidebar = ({ boardInfo }: RightSidebarProps) => {
   }
 
   return (
-    <aside className="flex flex-col bg-white px-2 py-4 gap-2 rounded-md m-4">
+    <aside className="hidden lg:flex flex-col bg-white px-2 py-4 gap-2 rounded-md m-4">
       <div className="flex text-[1.3rem] items-center gap-2">
         <Icon />
         <a href="/mood">{name}</a>
