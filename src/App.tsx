@@ -2,7 +2,7 @@ import Header from "./Layouts/Header"
 import "./App.css"
 import MyContextProvider from "./Context/MyContextProvider"
 import LeftSideMenu from "./Layouts/LeftSideMenu"
-import PostBoard from "./Layouts/PostBoard"
+import Postboard from "./Layouts/Postboard"
 import RightSidebar from "./Layouts/RightSidebar"
 import { MoodBoardInfo } from "./Data/MoodBoardInfo"
 
@@ -12,7 +12,7 @@ const App = () => {
       <Header />
       <div className="flex justify-center items-start mx-auto">
         <LeftSideMenu />
-        <PostBoard />
+        <Postboard />
         <RightSidebar boardInfo={MoodBoardInfo} />
       </div>
     </MyContextProvider>
