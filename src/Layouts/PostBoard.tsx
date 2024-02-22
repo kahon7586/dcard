@@ -1,17 +1,38 @@
-import { useState } from "react"
+import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import postImg from "../Assets/1280.webp"
 import Button from "../CVA/Button"
 import { MoodBoardInfo } from "../Data/MoodBoardInfo"
 import Post from "../Components/Postboard/Post"
+import { PostListData } from "../Data/PostListData"
+import { setHeightToBottom } from "../Lib/setHeightToBottom"
 
-const PostBoard = () => {
+const Postboard = () => {
   const { name, Icon } = MoodBoardInfo
   const LABELS: string[] = ["Hot", "New", "Rules"]
 
   const [currLabel, setCurrLabel] = useState(LABELS[0])
+  const PostboardRef = useRef<HTMLDivElement | null>(null)
+
+  useLayoutEffect(() => {
+    setHeightToBottom(PostboardRef)
+  }, [])
+
+  useEffect(() => {
+    function handler() {
+      setHeightToBottom(PostboardRef)
+    }
+
+    window.addEventListener("resize", handler)
+
+    return () => {
+      window.removeEventListener("resize", handler)
+    }
+  }, [])
 
   return (
-    <div className=" flex flex-col min-w-[500px] max-w-[768px] px-2 py-4">
+    <div
+      className="flex bg-white flex-col min-w-[500px] max-w-[768px] mt-2 mx-2 overflow-y-auto"
+      ref={PostboardRef}>
       <img
         className="bg-black object-cover object-bottom"
         src={postImg}
@@ -42,11 +63,16 @@ const PostBoard = () => {
         <hr />
 
         <div>
-          <Post postId="p1" />
+          {PostListData.map((post) => (
+            <Post
+              key={post.postId}
+              postId={post.postId}
+            />
+          ))}
         </div>
       </div>
     </div>
   )
 }
 
-export default PostBoard
+export default Postboard
