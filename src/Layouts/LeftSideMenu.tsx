@@ -4,21 +4,15 @@ import { generalShortCuts, trendingCategory, selectedCaregory } from "../Data/Si
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import Button from "../CVA/Button"
 import { IoIosArrowForward } from "react-icons/io"
+import { setHeightToBottom } from "../Lib/setHeightToBottom"
 
 const LeftSideMenu = () => {
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false)
   const scrollMenuRef = useRef<HTMLDivElement | null>(null)
 
-  function adjustMenuHeight() {
-    const menu = scrollMenuRef.current
-    if (menu === null) return
-    const rect = menu.getBoundingClientRect()
-    menu.style.height = `${window.innerHeight - rect.top - 1}px`
-  }
-
   useEffect(() => {
     function handler() {
-      adjustMenuHeight()
+      setHeightToBottom(scrollMenuRef)
       if (window.innerWidth >= 1024) {
         setIsSideMenuOpen(false)
       }
@@ -32,7 +26,7 @@ const LeftSideMenu = () => {
   }, [])
 
   useLayoutEffect(() => {
-    adjustMenuHeight()
+    setHeightToBottom(scrollMenuRef)
   }, [isSideMenuOpen])
 
   function clickSideMenuBtn() {
@@ -72,7 +66,7 @@ const LeftSideMenu = () => {
           ))}
         </SideMenuSection>
         <div
-          className="overflow-y-auto"
+          className="overflow-y-auto overflow-x-hidden"
           ref={scrollMenuRef}>
           <SideMenuSection title="Trending">
             {trendingCategory.map((item) => (
