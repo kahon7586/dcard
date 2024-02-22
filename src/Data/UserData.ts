@@ -9,6 +9,11 @@ export interface User {
     profileURL?: string
     school?: string
   }
+  userActivity: {
+    likedPost: string[]
+    commentedPost: string[]
+    collectedPost: string[]
+  }
 }
 
 export const UserData: { [key: string]: User } = {
@@ -21,12 +26,22 @@ export const UserData: { [key: string]: User } = {
       // profileURL: "/src/Assets/u1-profile.jpg",
       school: "Nation Dcard University",
     },
+    userActivity: {
+      likedPost: ["p1"],
+      commentedPost: ["p2"],
+      collectedPost: ["p3"],
+    },
   },
   u2: {
     userId: "u2",
     userInfo: {
       email: "u3@dcard.com",
       gender: "Female",
+    },
+    userActivity: {
+      likedPost: ["p2"],
+      commentedPost: ["p3"],
+      collectedPost: ["p1"],
     },
   },
   u3: {
@@ -35,7 +50,12 @@ export const UserData: { [key: string]: User } = {
       nickName: "DcArD uSeR3",
       email: "u3@dcard.com",
       gender: "Other",
-      profileURL: "../Assets/u3-profile.jpg",
+      profileURL: "/src/Assets/u3-profile.jpg",
+    },
+    userActivity: {
+      likedPost: ["p3"],
+      commentedPost: ["p1"],
+      collectedPost: ["p2"],
     },
   },
 }
