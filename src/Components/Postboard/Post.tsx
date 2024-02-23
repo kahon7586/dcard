@@ -1,55 +1,46 @@
-import { PostData } from "../../Data/PostData"
-import { UserData } from "../../Data/UserData"
 import { getProfile } from "../../Lib/getProfile"
 import Button from "../../CVA/Button"
 import { timeFormatter } from "../../Lib/timeFormatter"
 import { IoChatbubbleEllipses, IoHeartCircleSharp } from "react-icons/io5"
 import { IoMdBookmark } from "react-icons/io"
-import { useState } from "react"
-import { currUser } from "../../Auth/currUser"
+import { PostInfo } from "../../Hooks/usePostList"
+import { UserInfo, useSingleUser } from "../../Hooks/useSingleUser"
+import { fakePostAt } from "../../Lib/fakePostAt"
 
 interface PostProps {
-  postId: string
+  post: PostInfo
 }
 
-const Post = ({ postId }: PostProps) => {
-  const {
-    userId,
-    info: { title, content, postAt },
-    counts: { like, comment },
-  } = PostData[postId]
+const Post = ({ post }: PostProps) => {
+  const { title, body, reactions, userId } = post
 
-  const {
-    userInfo: { nickName = "anonymous", gender, profileURL },
-  } = UserData[userId]
+  const [isUserLoad, userInfo] = useSingleUser(userId)
 
-  const {
-    userActivity: { likedPost, commentedPost, collectedPost },
-  } = UserData[currUser]
+  if (isUserLoad === false && userInfo === null) {
+    return null
+  }
 
-  const [isLiked, setIsLiked] = useState(likedPost.includes(postId))
-  const [isCommented, setIscommented] = useState(commentedPost.includes(postId))
-  const [isCollected, setIsCollected] = useState(collectedPost.includes(postId))
+  const { gender, image, username } = userInfo as UserInfo
 
   function handleClickLike() {
-    setIsLiked(false)
     alert("You Like this post!")
   }
 
   return (
-    <div className="flex flex-col text-dcard-text-2 py-4 border-b last:border-0">
-      <div className="flex items-center gap-4">
+    <div className="flex flex-col text-dcard-text-2 first:py-0 py-4 border-b last:border-0">
+      <div className="flex items-center gap-2">
         <Button
+          className="size-6"
           variant="ghost"
           size="icon">
-          {getProfile(profileURL, gender)}
+          {getProfile(image, gender)}
         </Button>
         <span>
-          {nickName}・{timeFormatter(postAt)}
+          {username}・{timeFormatter(fakePostAt())}
         </span>
       </div>
       <div className="font-bold my-1 text-xl text-black">{title}</div>
-      <div className="text-lg my-1">{content}</div>
+      <div className="text-lg my-1">{body}</div>
       <div className="flex items-center gap-2 my-2">
         <Button
           className="flex items-center gap-1 p-0 leading-4 text-dcard-text-2 "
@@ -59,10 +50,10 @@ const Post = ({ postId }: PostProps) => {
           <div className="size-6">
             <IoHeartCircleSharp
               viewBox="0 0 500 500"
-              className={`${isLiked ? "fill-dcard-girl" : "fill-dcard-text-2"}  hover:fill-dcard-girl size-full`}
+              className={`${true ? "fill-dcard-girl" : "fill-dcard-text-2"}  hover:fill-dcard-girl size-full`}
             />
           </div>
-          {like}
+          {reactions}
         </Button>
         <Button
           className="flex as items-center gap-1 p-0 leading-4 text-dcard-text-2"
@@ -74,7 +65,7 @@ const Post = ({ postId }: PostProps) => {
               className="fill-dcard-text-2 hover:fill-dcard-light-hover size-full"
             />
           </div>
-          {comment}
+          {12}
         </Button>
         <Button
           className="flex items-center gap-1 p-0 leading-4 text-dcard-text-2"
