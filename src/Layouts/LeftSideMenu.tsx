@@ -46,7 +46,7 @@ const LeftSideMenu = () => {
       <aside
         className={`bg-dcard-bg absolute top-0 left-0 ${
           isSideMenuOpen ? "block" : "hidden"
-        } lg:pt-6 lg:block lg:static`}>
+        } lg:pt-4 lg:block lg:static`}>
         <SideMenuSection>
           {generalShortCuts.map((item) => (
             <SideMenuItem
