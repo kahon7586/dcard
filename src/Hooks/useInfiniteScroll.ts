@@ -22,12 +22,13 @@ export function useInfiniteScroll(
       const { scrollHeight, scrollTop, clientHeight } = scrollDiv
 
       if (clientHeight + scrollTop > scrollHeight - tirggerHeight) {
+        console.log("reach bottom!")
         callbackFn()
       } else console.log("not bottom")
     }
 
-    scrollDiv.addEventListener("scroll", throttle(scrollHandler))
+    scrollDiv.addEventListener("scroll", throttle(scrollHandler, 2000))
 
-    return () => scrollDiv.removeEventListener("scroll", throttle(scrollHandler))
+    return () => scrollDiv.removeEventListener("scroll", throttle(scrollHandler, 2000))
   }, [])
 }
