@@ -1,9 +1,18 @@
-import { MutableRefObject, useEffect, useState } from "react"
+import { MutableRefObject, useEffect } from "react"
+import { throttle } from "../Utility/throttle"
 
-export function useInfiniteScroll(scrollRef: MutableRefObject<HTMLDivElement | null>, callbackFn: () => void) {
-  const LOAD_Y_OFFSET = 10
-  const [isBottom, setIsBottom] = useState(false)
+// useInfiniteScroll hook will operate callbackFn when user scroll down to the bottom of scrollRef
+// tirggerHeight could customize the rest of height to trigger callbackFn
 
+//  scrollHeight: the total height of element (include overflow part)
+//  scrollTop: the top position of visible part
+//  clientHeight: the height of visible part
+
+export function useInfiniteScroll(
+  scrollRef: MutableRefObject<HTMLDivElement | null>,
+  callbackFn: () => void,
+  tirggerHeight = 10
+) {
   useEffect(() => {
     if (scrollRef.current === null) return
 
@@ -12,17 +21,13 @@ export function useInfiniteScroll(scrollRef: MutableRefObject<HTMLDivElement | n
     function scrollHandler() {
       const { scrollHeight, scrollTop, clientHeight } = scrollDiv
 
-      if (clientHeight + scrollTop > scrollHeight - LOAD_Y_OFFSET) {
-        setIsBottom(true)
+      if (clientHeight + scrollTop > scrollHeight - tirggerHeight) {
         callbackFn()
-      } else {
-        console.log("not bottom")
-        setIsBottom(false)
-      }
+      } else console.log("not bottom")
     }
 
-    scrollDiv.addEventListener("scroll", scrollHandler)
+    scrollDiv.addEventListener("scroll", throttle(scrollHandler))
 
-    return () => scrollDiv.removeEventListener("scroll", scrollHandler)
+    return () => scrollDiv.removeEventListener("scroll", throttle(scrollHandler))
   }, [])
 }
