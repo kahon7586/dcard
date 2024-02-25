@@ -4,8 +4,9 @@ import { timeFormatter } from "../../Utility/timeFormatter"
 import { IoChatbubbleEllipses, IoHeartCircleSharp } from "react-icons/io5"
 import { IoMdBookmark } from "react-icons/io"
 import { PostInfo } from "../../Hooks/usePostList"
-import { UserInfo, useSingleUser } from "../../Hooks/useSingleUser"
+import { useSingleUser } from "../../Hooks/useSingleUser"
 import { fakePostAt } from "../../Utility/fakePostAt"
+import { useCallback, useMemo } from "react"
 
 interface PostProps {
   post: PostInfo
@@ -14,13 +15,13 @@ interface PostProps {
 const Post = ({ post }: PostProps) => {
   const { title, body, reactions, userId } = post
 
-  const [isUserLoad, userInfo] = useSingleUser(userId)
+  const userInfo = useSingleUser(userId)
 
-  if (isUserLoad === false && userInfo === null) {
-    return null
-  }
+  if (userInfo === null) return null
 
-  const { gender, image, username } = userInfo as UserInfo
+  const { gender, image, username } = userInfo
+
+  // const userProfile = useMemo(() => getProfile(image, gender), [userInfo])
 
   function handleClickLike() {
     alert("You Like this post!")
