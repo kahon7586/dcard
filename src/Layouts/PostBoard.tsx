@@ -3,7 +3,7 @@ import Button from "../CVA/Button"
 import { MoodBoardInfo } from "../Data/MoodBoardInfo"
 import Post from "../Components/Postboard/Post"
 import { setHeightToBottom } from "../Utility/setHeightToBottom"
-import { useReachBottom } from "../Hooks/useReachBottom"
+import { useHeightToBottom } from "../Hooks/useHeightToBottom"
 import { usePostList } from "../Hooks/usePostList"
 import { useInfiniteScroll } from "../Hooks/useInfiniteScroll"
 
@@ -22,10 +22,10 @@ const Postboard = () => {
   }, [])
 
   function handleScrollEnd() {
-    console.log("reach bottom!")
+    console.log("reach bottom")
   }
 
-  useReachBottom(PostboardRef)
+  useHeightToBottom(PostboardRef)
   useInfiniteScroll(PostboardRef, handleScrollEnd)
 
   const [isPostsLoad, postList] = usePostList({ limit: POST_PER_LOAD, skip: skipNum.current, delay: 500 }, [skipNum])

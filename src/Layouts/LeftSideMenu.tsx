@@ -5,13 +5,13 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import Button from "../CVA/Button"
 import { IoIosArrowForward } from "react-icons/io"
 import { setHeightToBottom } from "../Utility/setHeightToBottom"
-import { useReachBottom } from "../Hooks/useReachBottom"
+import { useHeightToBottom } from "../Hooks/useHeightToBottom"
 
 const LeftSideMenu = () => {
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false)
   const scrollMenuRef = useRef<HTMLDivElement | null>(null)
 
-  useReachBottom(scrollMenuRef, () => {
+  useHeightToBottom(scrollMenuRef, () => {
     if (window.innerWidth >= 1024) {
       setIsSideMenuOpen(false)
     }

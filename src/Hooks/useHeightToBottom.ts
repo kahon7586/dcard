@@ -4,7 +4,7 @@ import { setHeightToBottom } from "../Utility/setHeightToBottom"
 // add a resize listener to ref element that adjust height to reach viewport bottom,
 // this hook also accept callbackFn to operate when listener is triggered
 
-export function useReachBottom(divRef: MutableRefObject<HTMLDivElement | null>, callbackFn?: () => void) {
+export function useHeightToBottom(divRef: MutableRefObject<HTMLDivElement | null>, callbackFn?: () => void) {
   useEffect(() => {
     function handler() {
       setHeightToBottom(divRef)
