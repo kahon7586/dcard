@@ -1,5 +1,5 @@
 import { MutableRefObject, useEffect } from "react"
-import { setHeightToBottom } from "../Lib/setHeightToBottom"
+import { setHeightToBottom } from "../Utility/setHeightToBottom"
 
 // add a resize listener to ref element that adjust height to reach viewport bottom,
 // this hook also accept callbackFn to operate when listener is triggered

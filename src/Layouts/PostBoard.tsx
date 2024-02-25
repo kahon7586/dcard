@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import Button from "../CVA/Button"
 import { MoodBoardInfo } from "../Data/MoodBoardInfo"
 import Post from "../Components/Postboard/Post"
-import { setHeightToBottom } from "../Lib/setHeightToBottom"
+import { setHeightToBottom } from "../Utility/setHeightToBottom"
 import { useReachBottom } from "../Hooks/useReachBottom"
 import { usePostList } from "../Hooks/usePostList"
 import { useInfiniteScroll } from "../Hooks/useInfiniteScroll"
@@ -10,7 +10,7 @@ import { useInfiniteScroll } from "../Hooks/useInfiniteScroll"
 const Postboard = () => {
   const { name, Icon } = MoodBoardInfo
   const LABELS: string[] = ["Hot", "New", "Rules"]
-  const POST_PER_LOAD = 5
+  const POST_PER_LOAD = 1
 
   const [currLabel, setCurrLabel] = useState(LABELS[0])
   const skipNum = useRef(0)
@@ -28,7 +28,7 @@ const Postboard = () => {
   useReachBottom(PostboardRef)
   useInfiniteScroll(PostboardRef, handleScrollEnd)
 
-  const [isPostsLoad, postList] = usePostList({ limit: POST_PER_LOAD, skip: skipNum.current, delay: 2000 }, [skipNum])
+  const [isPostsLoad, postList] = usePostList({ limit: POST_PER_LOAD, skip: skipNum.current, delay: 500 }, [skipNum])
 
   return (
     <div

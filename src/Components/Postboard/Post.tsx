@@ -1,11 +1,11 @@
-import { getProfile } from "../../Lib/getProfile"
+import { getProfile } from "../../Utility/getProfile"
 import Button from "../../CVA/Button"
-import { timeFormatter } from "../../Lib/timeFormatter"
+import { timeFormatter } from "../../Utility/timeFormatter"
 import { IoChatbubbleEllipses, IoHeartCircleSharp } from "react-icons/io5"
 import { IoMdBookmark } from "react-icons/io"
 import { PostInfo } from "../../Hooks/usePostList"
 import { UserInfo, useSingleUser } from "../../Hooks/useSingleUser"
-import { fakePostAt } from "../../Lib/fakePostAt"
+import { fakePostAt } from "../../Utility/fakePostAt"
 
 interface PostProps {
   post: PostInfo

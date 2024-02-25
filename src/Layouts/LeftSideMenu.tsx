@@ -4,7 +4,7 @@ import { generalShortCuts, trendingCategory, selectedCaregory } from "../Data/Si
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import Button from "../CVA/Button"
 import { IoIosArrowForward } from "react-icons/io"
-import { setHeightToBottom } from "../Lib/setHeightToBottom"
+import { setHeightToBottom } from "../Utility/setHeightToBottom"
 import { useReachBottom } from "../Hooks/useReachBottom"
 
 const LeftSideMenu = () => {
