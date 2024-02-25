@@ -18,11 +18,10 @@ export interface QueryInfo {
 export function useSingleUser(userId: number) {
   const userUrl = `https://dummyjson.com/users/filter?key=id&value=${userId}&select=gender,username,image`
 
-  const [isUserLoad, setIsUserLoad] = useState(false)
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null)
 
   useEffect(() => {
-    async function fetchPostData() {
+    async function fetchUserData() {
       try {
         let res = await fetch(userUrl)
         let data = (await res.json()) as QueryInfo // structure should be followed
@@ -32,14 +31,8 @@ export function useSingleUser(userId: number) {
         console.log(err)
       }
     }
-    fetchPostData()
+    fetchUserData()
   }, [])
 
-  useEffect(() => {
-    if (userInfo !== null) {
-      setIsUserLoad(true)
-    }
-  }, [userInfo])
-
-  return [isUserLoad, userInfo] as [boolean, UserInfo | null]
+  return userInfo as UserInfo | null
 }
