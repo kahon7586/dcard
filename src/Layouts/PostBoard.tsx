@@ -1,19 +1,16 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react"
+import { useLayoutEffect, useRef, useState } from "react"
 import Button from "../CVA/Button"
 import { MoodBoardInfo } from "../Data/MoodBoardInfo"
 import Post from "../Components/Postboard/Post"
 import { setHeightToBottom } from "../Utility/setHeightToBottom"
 import { useHeightToBottom } from "../Hooks/useHeightToBottom"
 import { usePostList } from "../Hooks/usePostList"
-import { useInfiniteScroll } from "../Hooks/useInfiniteScroll"
 
 const Postboard = () => {
   const { name, Icon } = MoodBoardInfo
   const LABELS: string[] = ["Hot", "New", "Rules"]
-  const POST_PER_LOAD = 1
 
   const [currLabel, setCurrLabel] = useState(LABELS[0])
-  const skipNum = useRef(0)
 
   const PostboardRef = useRef<HTMLDivElement | null>(null)
 
@@ -21,14 +18,9 @@ const Postboard = () => {
     setHeightToBottom(PostboardRef)
   }, [])
 
-  function handleScrollEnd() {
-    console.log("reach bottom")
-  }
-
   useHeightToBottom(PostboardRef)
-  useInfiniteScroll(PostboardRef, handleScrollEnd)
 
-  const [isPostsLoad, postList] = usePostList({ limit: POST_PER_LOAD, skip: skipNum.current, delay: 500 }, [skipNum])
+  const postList = usePostList({ limit: 3, delay: 500 }, PostboardRef)
 
   return (
     <div
@@ -65,8 +57,8 @@ const Postboard = () => {
       </div>
 
       <div className="px-8">
-        {isPostsLoad ? (
-          postList?.posts.map((post) => (
+        {postList !== null ? (
+          postList.map((post) => (
             <Post
               post={post}
               key={post.id}
