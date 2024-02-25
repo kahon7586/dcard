@@ -1,6 +1,7 @@
 // This hook will be used like useState, but just return post array
 
-import { useEffect, useState } from "react"
+import { MutableRefObject, useEffect, useRef, useState } from "react"
+import { useInfiniteScroll } from "./useInfiniteScroll"
 
 export interface PostInfo {
   id: number
@@ -11,7 +12,7 @@ export interface PostInfo {
   reactions: number
 }
 
-export interface PostList {
+export interface PostJSON {
   posts: PostInfo[]
   total: number
   skip: number
@@ -25,9 +26,10 @@ export interface PostQuery {
   select: string[]
 }
 
-function createPostQueryUrl(options: PostQuery) {
+function createPostQueryUrl(options: Partial<PostQuery>) {
   // exampleUrl https://dummyjson.com/posts?limit=10&skip=10&select=title,reactions,userId
-  const basic = "https://dummyjson.com/posts"
+  const basicUrl = "https://dummyjson.com/posts"
+
   const queryPairs = Object.entries(options) as [string, number | string[]][] // [[name, value], [name, value], ...]
   let queryUrl = ""
 
@@ -44,31 +46,49 @@ function createPostQueryUrl(options: PostQuery) {
     }
   })
 
-  return basic + queryUrl
+  return basicUrl + queryUrl
 }
 
-export function usePostList(options: Partial<PostQuery>, dep: React.DependencyList) {
-  const DEFAULT_VALUE: PostQuery = { limit: 0, skip: 0, delay: 0, select: [] }
-  const mergedValue: PostQuery = { ...DEFAULT_VALUE, ...options }
+export function usePostList(options: Partial<PostQuery>, postboardRef: MutableRefObject<HTMLDivElement | null>) {
+  const [isBottom, setIsBottom] = useState(false)
+  const [postList, setPostList] = useState<PostInfo[] | null>(null)
 
-  const [isPostsLoad, setIsPostLoad] = useState(false)
-  const [postList, setPostList] = useState<PostList | null>(null)
+  const prevPostNumRef = useRef<number>(0)
 
   useEffect(() => {
+    if (isBottom === false && postList !== null) return
+
+    console.log("prevPostNum: " + prevPostNumRef.current)
+
     const abortController = new AbortController()
-    const postUrl = createPostQueryUrl(mergedValue)
+    // if a new request sended before the previous request complete,
+    // the old request will be canceled by abortController
 
     async function fetchPostData() {
-      console.log("fetching post data: " + postUrl)
+      const prevPostNum = prevPostNumRef.current
+      const defaultQuery: PostQuery = { limit: 5, skip: prevPostNum, delay: 0, select: [] }
+      const finalQuery: PostQuery = { ...defaultQuery, ...options }
+
+      const postUrl = createPostQueryUrl(finalQuery)
+      console.log("fetching post data from: " + postUrl)
+
       try {
-        let res = await fetch(postUrl, { signal: abortController.signal })
-        let data = (await res.json()) as PostList // structure should follow postList
+        const dataJSON: PostJSON = await (await fetch(postUrl, { signal: abortController.signal })).json() // structure should follow PostJSON
+        console.log(dataJSON)
+        const postListData = dataJSON.posts
         console.log("post fetching complete!")
-        setPostList(data)
-        setIsPostLoad(true)
+
+        setPostList((prev) => {
+          if (prev === null) return postListData
+          return [...prev, ...postListData]
+        })
+
+        const newLoadedPostNum = finalQuery.limit
+        prevPostNumRef.current += newLoadedPostNum
       } catch (err) {
         console.log(err)
-        setIsPostLoad(true)
+      } finally {
+        setIsBottom(false)
       }
     }
 
@@ -76,8 +96,15 @@ export function usePostList(options: Partial<PostQuery>, dep: React.DependencyLi
 
     return () => {
       abortController.abort()
+      // cancel request when re-render
     }
-  }, dep)
+  }, [isBottom])
 
-  return [isPostsLoad, postList] as [boolean, PostList | null]
+  function handleScrollEnd() {
+    setIsBottom(true)
+  }
+
+  useInfiniteScroll(postboardRef, handleScrollEnd)
+
+  return postList as PostInfo[] | null
 }
