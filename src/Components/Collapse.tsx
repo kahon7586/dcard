@@ -1,15 +1,15 @@
-import { ReactNode, useLayoutEffect, useRef, useState } from "react"
+import { HTMLAttributes, ReactNode, useLayoutEffect, useRef, useState } from "react"
 import Button from "../CVA/Button"
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io"
 
-interface CollapseDivProps {
-  children: ReactNode
+interface CollapseProps extends HTMLAttributes<HTMLDivElement> {
+  children?: ReactNode
   closeHeight?: string
   duration?: string
   delay?: string
 }
 
-const Collapse = ({ children, closeHeight = "1.5rem", duration = "1000ms", delay = "0" }: CollapseDivProps) => {
+const Collapse = ({ children, className, closeHeight = "1.5rem", duration = "1000ms", delay = "0" }: CollapseProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const collapseRef = useRef<HTMLDivElement | null>(null)
 
@@ -33,9 +33,9 @@ const Collapse = ({ children, closeHeight = "1.5rem", duration = "1000ms", delay
   }
 
   return (
-    <section className=" flex items-start justify-center">
+    <section className="flex items-start justify-center">
       <div
-        className="transition-height overflow-hidden"
+        className={`transition-height overflow-hidden ${className}`}
         ref={collapseRef}>
         {children}
       </div>
