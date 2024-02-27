@@ -39,11 +39,11 @@ const LeftSideMenu = () => {
       <div
         className={`${
           isSideMenuOpen ? "block" : "hidden"
-        } lg:hidden absolute top-0 bg-black bg-opacity-80 w-full h-full`}
+        } lg:hidden absolute z-50 top-0 bg-black bg-opacity-80 w-full h-full`}
         onClick={() => setIsSideMenuOpen(false)}></div>
 
       <aside
-        className={`bg-dcard-bg absolute top-0 left-0 ${
+        className={`bg-dcard-bg absolute z-[99] top-0 left-0 ${
           isSideMenuOpen ? "block" : "hidden"
         } lg:pt-4 lg:block lg:static`}>
         <SideMenuSection>

@@ -30,7 +30,7 @@ const Postboard = () => {
         src={"https://placehold.co/1280x427"}
       />
 
-      <div className="flex flex-col bg-white px-8 pt-8 sticky top-0">
+      <div className="flex flex-col bg-white px-8 pt-8 sticky top-0 z-20">
         <div className="flex justify-between items-center pb-4">
           <div className="flex gap-6 text-[2rem] items-center">
             <Icon />
