@@ -2,7 +2,6 @@ import { useLayoutEffect, useRef, useState } from "react"
 import Button from "../CVA/Button"
 import { MoodBoardInfo } from "../Data/MoodBoardInfo"
 import Post from "../Components/Postboard/Post"
-import { setHeightToBottom } from "../Utility/setHeightToBottom"
 import { useHeightToBottom } from "../Hooks/useHeightToBottom"
 import { usePostList } from "../Hooks/usePostList"
 import Labels from "../Components/Postboard/Labels"
@@ -19,10 +18,6 @@ const Postboard = () => {
 
   const postList = usePostList(TEST_QUERY, PostboardRef)
   // the place where data_fetcing and infinite scroll behavior live
-
-  useLayoutEffect(() => {
-    setHeightToBottom(PostboardRef)
-  }, [])
 
   useHeightToBottom(PostboardRef)
 
