@@ -6,6 +6,11 @@ import { setHeightToBottom } from "../Utility/setHeightToBottom"
 import { useHeightToBottom } from "../Hooks/useHeightToBottom"
 import { usePostList } from "../Hooks/usePostList"
 
+const TEST_QUERY = {
+  limit: 1,
+  delay: 250,
+}
+
 const Postboard = () => {
   const { name, Icon } = MoodBoardInfo
   const LABELS: string[] = ["Hot", "New", "Rules"]
@@ -14,13 +19,14 @@ const Postboard = () => {
 
   const PostboardRef = useRef<HTMLDivElement | null>(null)
 
+  const postList = usePostList(TEST_QUERY, PostboardRef)
+  // the place where data_fetcing and infinite scroll behavior live
+
   useLayoutEffect(() => {
     setHeightToBottom(PostboardRef)
   }, [])
 
   useHeightToBottom(PostboardRef)
-
-  const postList = usePostList({ limit: 3, delay: 500 }, PostboardRef)
 
   return (
     <div
