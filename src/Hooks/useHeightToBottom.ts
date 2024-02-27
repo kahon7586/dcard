@@ -5,26 +5,26 @@ import { MutableRefObject, useEffect, useLayoutEffect } from "react"
 
 const TEST_BOTTOM_OFFSET = 5
 
-function setHeightToBottom(targetDivRef: MutableRefObject<HTMLDivElement | null>, TEST_BOTTOM_OFFSET = 5) {
+export function setMaxHeightToBottom(targetDivRef: MutableRefObject<HTMLDivElement | null>, TEST_BOTTOM_OFFSET = 5) {
   const targetDiv = targetDivRef.current
   if (targetDiv === null) return
   const rect = targetDiv.getBoundingClientRect()
-  targetDiv.style.height = `${window.innerHeight - rect.top - TEST_BOTTOM_OFFSET}px`
+  targetDiv.style.maxHeight = `${window.innerHeight - rect.top - TEST_BOTTOM_OFFSET}px`
 }
 
 export function useHeightToBottom(
   divRef: MutableRefObject<HTMLDivElement | null>,
   callbackFn?: () => void,
-  deps?: React.DependencyList
+  deps?: React.DependencyList // for initially height set
 ) {
   useLayoutEffect(() => {
-    setHeightToBottom(divRef)
+    setMaxHeightToBottom(divRef)
   }, deps)
   // Initially height set with deps
 
   useEffect(() => {
     function handler() {
-      setHeightToBottom(divRef)
+      setMaxHeightToBottom(divRef)
       if (callbackFn !== undefined) callbackFn()
     }
 
