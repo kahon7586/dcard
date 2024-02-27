@@ -3,6 +3,7 @@ import { IoIosArrowUp } from "react-icons/io"
 import { BoardInfo } from "../Data/BoardInfo"
 import Button from "../CVA/Button"
 import { useLayoutEffect, useRef, useState } from "react"
+import { useHeightToBottom } from "../Hooks/useHeightToBottom"
 
 interface RightSidebarProps {
   boardInfo: BoardInfo
@@ -14,6 +15,7 @@ const RightSidebar = ({ boardInfo }: RightSidebarProps) => {
   const [isInfoOpen, setIsInfoOpen] = useState(false)
   const [isTagsOpen, setIsTagsOpen] = useState(false)
 
+  const menuRef = useRef<HTMLDivElement | null>(null)
   const infoRef = useRef<HTMLDivElement | null>(null)
   const tagsRef = useRef<HTMLDivElement | null>(null)
 
@@ -26,6 +28,8 @@ const RightSidebar = ({ boardInfo }: RightSidebarProps) => {
     }, 500)
   }, [isInfoOpen])
 
+  useHeightToBottom(menuRef)
+
   function handleClickInfo() {
     setIsInfoOpen((prev) => !prev)
   }
@@ -34,9 +38,11 @@ const RightSidebar = ({ boardInfo }: RightSidebarProps) => {
   }
 
   return (
-    <aside className="hidden lg:flex flex-col bg-white px-2 py-4 gap-2 rounded-md m-4">
+    <aside
+      className="hidden lg:flex flex-col bg-white px-2 py-4 gap-2 rounded-md m-4 mb-0 overflow-y-auto"
+      ref={menuRef}>
       <div className="flex text-[1.3rem] items-center gap-2">
-        <Icon />
+        <Icon className="shrink-0" />
         <a href="/mood">{name}</a>
       </div>
 
