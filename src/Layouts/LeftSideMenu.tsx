@@ -20,10 +20,6 @@ const LeftSideMenu = () => {
     [isSideMenuOpen]
   )
 
-  // useLayoutEffect(() => {
-  //   setHeightToBottom(scrollMenuRef)
-  // }, [isSideMenuOpen])
-
   function clickSideMenuBtn() {
     setIsSideMenuOpen((prev) => !prev)
   }
