@@ -27,8 +27,10 @@ export function useInfiniteScroll(
       } else console.log("not bottom")
     }
 
-    scrollDiv.addEventListener("scroll", throttle(scrollHandler, 2000))
+    scrollDiv.addEventListener("scroll", throttle(scrollHandler, 200))
 
-    return () => scrollDiv.removeEventListener("scroll", throttle(scrollHandler, 2000))
+    return () => {
+      scrollDiv.removeEventListener("scroll", throttle(scrollHandler, 200))
+    }
   }, [])
 }
