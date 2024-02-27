@@ -8,6 +8,8 @@ import { throttle } from "../Utility/throttle"
 //  scrollTop: the top position of visible part
 //  clientHeight: the height of visible part
 
+const TEST_THROTTLE_DELAY = 200
+
 export function useInfiniteScroll(
   scrollRef: MutableRefObject<HTMLDivElement | null>,
   callbackFn: () => void,
@@ -27,10 +29,10 @@ export function useInfiniteScroll(
       } else console.log("not bottom")
     }
 
-    scrollDiv.addEventListener("scroll", throttle(scrollHandler, 200))
+    scrollDiv.addEventListener("scroll", throttle(scrollHandler, TEST_THROTTLE_DELAY))
 
     return () => {
-      scrollDiv.removeEventListener("scroll", throttle(scrollHandler, 200))
+      scrollDiv.removeEventListener("scroll", throttle(scrollHandler, TEST_THROTTLE_DELAY))
     }
   }, [])
 }
