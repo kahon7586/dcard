@@ -4,6 +4,7 @@ import { BoardInfo } from "../Data/BoardInfo"
 import Button from "../CVA/Button"
 import { useLayoutEffect, useRef, useState } from "react"
 import { useHeightToBottom } from "../Hooks/useHeightToBottom"
+import Collapse from "../Components/Collapse"
 
 interface RightSidebarProps {
   boardInfo: BoardInfo
@@ -48,24 +49,27 @@ const RightSidebar = ({ boardInfo }: RightSidebarProps) => {
 
       <div className="text-dcard-text-2 text-[0.9rem]">There are {postPerDay} posts every day.</div>
 
-      <div className="flex items-start justify-center">
-        <div
-          className={`text-dcard-text-2 text-[0.9rem] transition-all duration-500 ease-in-out max-w-[15rem] overflow-hidden ${
-            isInfoOpen ? "max-h-[250px]" : "max-h-[1.5rem]"
-          }`}
-          ref={infoRef}>
-          {info}
-        </div>
-        <Button
-          className="w-4 mt-1"
-          size="icon"
-          variant="ghost"
-          onClick={handleClickInfo}>
-          {isInfoOpen ? <IoIosArrowUp fill="text-dcard-text" /> : <IoIosArrowDown fill="text-dcard-text" />}
-        </Button>
-      </div>
+      <Collapse
+        className="text-dcard-text-2 text-[0.9rem]"
+        duration="500ms">
+        {info}
+      </Collapse>
 
-      <div className="flex items-start justify-center">
+      <Collapse
+        className="text-dcard-text-2 text-[0.9rem] flex flex-wrap gap-x-3 gap-y-2"
+        closeHeight="2rem"
+        duration="500ms">
+        {tags.map((tag) => (
+          <Button
+            className="text-sm rounded-full bg-dcard-btn-bg-gray text-black"
+            variant="ghost"
+            key={tag}>
+            {tag}
+          </Button>
+        ))}
+      </Collapse>
+
+      {/* <div className="flex items-start justify-center">
         <div
           className={`flex flex-wrap gap-x-3 gap-y-2 text-dcard-text-2 text-[0.9rem] transition-all duration-500 ease-in-out max-w-[15rem] overflow-hidden ${
             isTagsOpen ? "max-h-[250px]" : "max-h-[2rem]"
@@ -87,7 +91,7 @@ const RightSidebar = ({ boardInfo }: RightSidebarProps) => {
           onClick={handleClickTags}>
           {isTagsOpen ? <IoIosArrowUp fill="text-dcard-text" /> : <IoIosArrowDown fill="text-dcard-text" />}
         </Button>
-      </div>
+      </div> */}
 
       <div className="w-full py-2">
         <Button className="text-lg w-full">New Post</Button>
