@@ -55,8 +55,18 @@ export function usePostList(options: Partial<PostQuery>, postboardRef: MutableRe
 
   const prevPostNumRef = useRef<number>(0)
 
+  function handleScrollEnd() {
+    setIsBottom(true)
+    // here will operate when scroll to the end
+  }
+
+  useInfiniteScroll(postboardRef, handleScrollEnd)
+
   useEffect(() => {
-    if (isBottom === false && postList !== null) return
+    if (!(isBottom === true || postList === null)) return
+    // two condition to fetch post data:
+    // 1. when user reach the end.
+    // 2. when postList is not initially loaded.
 
     console.log("prevPostNum: " + prevPostNumRef.current)
 
@@ -99,12 +109,6 @@ export function usePostList(options: Partial<PostQuery>, postboardRef: MutableRe
       // cancel request when re-render
     }
   }, [isBottom])
-
-  function handleScrollEnd() {
-    setIsBottom(true)
-  }
-
-  useInfiniteScroll(postboardRef, handleScrollEnd)
 
   return postList as PostInfo[] | null
 }
