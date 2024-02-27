@@ -1,7 +1,8 @@
 import { cva, VariantProps } from "class-variance-authority"
 import { IconType } from "react-icons"
-import { ButtonHTMLAttributes, ComponentProps, ReactNode } from "react"
+import { ButtonHTMLAttributes, ReactNode } from "react"
 import { twMerge } from "tailwind-merge"
+import React from "react"
 
 const buttonStyles = cva(["transition-colors", "text-white"], {
   variants: {
@@ -37,4 +38,4 @@ const Button = ({ variant, size, className, Icon = null, children, ...props }: B
   )
 }
 
-export default Button
+export default React.memo(Button)
