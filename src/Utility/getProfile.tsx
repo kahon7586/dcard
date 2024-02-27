@@ -2,9 +2,14 @@ import { BiSolidFaceMask } from "react-icons/bi"
 import { UserGender } from "../Hooks/useSingleUser"
 import { FaUserCircle } from "react-icons/fa"
 
+const TEST_PROFILE = {
+  otherProbability: 0.3,
+  noProfileProbability: 0.5,
+}
+
 export function getProfile(profileURL: string | undefined, gender: UserGender) {
-  if (Math.random() < 0.3) gender = "other"
-  if (Math.random() < 0.2) profileURL = undefined
+  if (Math.random() < TEST_PROFILE.otherProbability) gender = "other"
+  if (Math.random() < TEST_PROFILE.noProfileProbability) profileURL = undefined
   // Simulate the condition that the user has no profile and gender is set to "other"
 
   if (profileURL !== undefined) {
