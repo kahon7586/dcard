@@ -1,5 +1,3 @@
-import { IoIosArrowDown } from "react-icons/io"
-import { IoIosArrowUp } from "react-icons/io"
 import { BoardInfo } from "../Data/BoardInfo"
 import Button from "../CVA/Button"
 import { useLayoutEffect, useRef, useState } from "react"
@@ -14,11 +12,9 @@ const RightSidebar = ({ boardInfo }: RightSidebarProps) => {
   const { name, Icon, postPerDay, info, tags } = boardInfo
 
   const [isInfoOpen, setIsInfoOpen] = useState(false)
-  const [isTagsOpen, setIsTagsOpen] = useState(false)
 
   const menuRef = useRef<HTMLDivElement | null>(null)
   const infoRef = useRef<HTMLDivElement | null>(null)
-  const tagsRef = useRef<HTMLDivElement | null>(null)
 
   useLayoutEffect(() => {
     setTimeout(() => {
@@ -30,13 +26,6 @@ const RightSidebar = ({ boardInfo }: RightSidebarProps) => {
   }, [isInfoOpen])
 
   useHeightToBottom(menuRef)
-
-  function handleClickInfo() {
-    setIsInfoOpen((prev) => !prev)
-  }
-  function handleClickTags() {
-    setIsTagsOpen((prev) => !prev)
-  }
 
   return (
     <aside
@@ -68,30 +57,6 @@ const RightSidebar = ({ boardInfo }: RightSidebarProps) => {
           </Button>
         ))}
       </Collapse>
-
-      {/* <div className="flex items-start justify-center">
-        <div
-          className={`flex flex-wrap gap-x-3 gap-y-2 text-dcard-text-2 text-[0.9rem] transition-all duration-500 ease-in-out max-w-[15rem] overflow-hidden ${
-            isTagsOpen ? "max-h-[250px]" : "max-h-[2rem]"
-          }`}
-          ref={tagsRef}>
-          {tags.map((tag) => (
-            <Button
-              className="text-sm rounded-full bg-dcard-btn-bg-gray text-black"
-              variant="ghost"
-              key={tag}>
-              {tag}
-            </Button>
-          ))}
-        </div>
-        <Button
-          className="w-4 mt-1"
-          size="icon"
-          variant="ghost"
-          onClick={handleClickTags}>
-          {isTagsOpen ? <IoIosArrowUp fill="text-dcard-text" /> : <IoIosArrowDown fill="text-dcard-text" />}
-        </Button>
-      </div> */}
 
       <div className="w-full py-2">
         <Button className="text-lg w-full">New Post</Button>
