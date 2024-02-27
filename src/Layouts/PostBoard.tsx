@@ -5,6 +5,7 @@ import Post from "../Components/Postboard/Post"
 import { setHeightToBottom } from "../Utility/setHeightToBottom"
 import { useHeightToBottom } from "../Hooks/useHeightToBottom"
 import { usePostList } from "../Hooks/usePostList"
+import Labels from "../Components/Postboard/Labels"
 
 const TEST_QUERY = {
   limit: 1,
@@ -13,9 +14,6 @@ const TEST_QUERY = {
 
 const Postboard = () => {
   const { name, Icon } = MoodBoardInfo
-  const LABELS: string[] = ["Hot", "New", "Rules"]
-
-  const [currLabel, setCurrLabel] = useState(LABELS[0])
 
   const PostboardRef = useRef<HTMLDivElement | null>(null)
 
@@ -43,21 +41,20 @@ const Postboard = () => {
             <Icon />
             <span className="leading-3">{name}</span>
           </div>
-          <Button className="h-fit">Follow</Button>
+          <div className="flex gap-2">
+            <Button
+              className="text-black bg-gray-100 w-[100px] relative group"
+              variant="ghost">
+              Follow
+              <div className="absolute inset-0 py-1 px-3 rounded-lg bg-gradient-to-l from-dcard-light-hover to-75% to-dcard-girl text-white [text-shadow:_0_0_10px_rgb(0_0_0_/_50%)] motion-safe:transition-[clip-path] motion-safe:duration-500 ease-out [clip-path:circle(20%_at_120%_120%)] group-hover:[clip-path:circle(170%_at_120%_120%)] w-[100px]">
+                <span className="">For More</span>
+              </div>
+            </Button>
+            <Button className="h-fit lg:hidden">New Post</Button>
+          </div>
         </div>
 
-        <div>
-          {LABELS.map((label, i) => (
-            <button
-              className={`px-4 py-2 text-lg text-dcard-text-2 hover:text-black ${
-                currLabel === label ? "border-b-2 border-b-dcard" : null
-              }`}
-              onClick={() => setCurrLabel(label)}
-              key={label}>
-              {label}
-            </button>
-          ))}
-        </div>
+        <Labels />
 
         <hr />
       </div>
