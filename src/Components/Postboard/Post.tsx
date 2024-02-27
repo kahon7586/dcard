@@ -16,6 +16,7 @@ const Post = ({ post }: PostProps) => {
   const { title, body, reactions, userId } = post
 
   const userInfo = useSingleUser(userId)
+  // the place to fetch user data
 
   if (userInfo === null) return null
 
@@ -26,7 +27,7 @@ const Post = ({ post }: PostProps) => {
   }
 
   return (
-    <div className="flex flex-col text-dcard-text-2 first:py-0 py-4 border-b last:border-0">
+    <div className="hover:bg-gray-100 flex flex-col text-dcard-text-2 px-8 pt-4">
       <div className="flex items-center gap-2">
         <Button
           className="size-6"
@@ -78,6 +79,8 @@ const Post = ({ post }: PostProps) => {
           </div>
         </Button>
       </div>
+
+      <hr className="px-8" />
     </div>
   )
 }
