@@ -6,7 +6,7 @@ import { IoMdBookmark } from "react-icons/io"
 import { PostInfo } from "../../Hooks/usePostList"
 import { useSingleUser } from "../../Hooks/useSingleUser"
 import { fakePostAt } from "../../Utility/fakePostAt"
-import { useCallback, useMemo } from "react"
+import React from "react"
 
 interface PostProps {
   post: PostInfo
@@ -20,8 +20,6 @@ const Post = ({ post }: PostProps) => {
   if (userInfo === null) return null
 
   const { gender, image, username } = userInfo
-
-  // const userProfile = useMemo(() => getProfile(image, gender), [userInfo])
 
   function handleClickLike() {
     alert("You Like this post!")
@@ -66,7 +64,7 @@ const Post = ({ post }: PostProps) => {
               className="fill-dcard-text-2 hover:fill-dcard-light-hover size-full"
             />
           </div>
-          {12}
+          {Math.floor(Math.random() * 50)}
         </Button>
         <Button
           className="flex items-center gap-1 p-0 leading-4 text-dcard-text-2"
@@ -84,4 +82,4 @@ const Post = ({ post }: PostProps) => {
   )
 }
 
-export default Post
+export default React.memo(Post)
