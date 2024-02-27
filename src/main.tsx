@@ -9,8 +9,8 @@ const STRICT_MODE = true
 if (STRICT_MODE) {
   ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
-      {/* <App /> */}
-      <Test />
+      <App />
+      {/* <Test /> */}
     </React.StrictMode>
   )
 } else {
