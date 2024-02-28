@@ -3,13 +3,19 @@ import Button from "../CVA/Button"
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io"
 
 interface CollapseProps extends HTMLAttributes<HTMLDivElement> {
-  children?: ReactNode
   closeHeight?: string
   duration?: string
   delay?: string
 }
 
-const Collapse = ({ children, className, closeHeight = "1.5rem", duration = "1000ms", delay = "0" }: CollapseProps) => {
+const Collapse = ({
+  children,
+  className,
+  closeHeight = "1.5rem",
+  duration = "1000ms",
+  delay = "0",
+  ...props
+}: CollapseProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const collapseRef = useRef<HTMLDivElement | null>(null)
 
@@ -36,7 +42,8 @@ const Collapse = ({ children, className, closeHeight = "1.5rem", duration = "100
     <section className="flex items-start justify-center">
       <div
         className={`transition-height overflow-hidden ${className}`}
-        ref={collapseRef}>
+        ref={collapseRef}
+        {...props}>
         {children}
       </div>
       <Button
