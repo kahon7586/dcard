@@ -6,10 +6,22 @@ import { VscTriangleDown, VscTriangleUp } from "react-icons/vsc"
 import { useEffect, useRef, useState } from "react"
 import SmallHeaderMenu from "../Components/HeaderMenu/SmallHeaderMenu"
 import { useHeaderMenu } from "../Context/useHeaderMenu"
+import React from "react"
+
+const Logo = React.memo(() => {
+  return (
+    <a
+      href="/"
+      className="shrink-0">
+      <img
+        className="w-auto h-8"
+        src={Dcard_logo}
+      />
+    </a>
+  )
+})
 
 const Header = () => {
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
-
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1024)
 
   const { isToggled, toggle } = useHeaderMenu()
@@ -38,14 +50,7 @@ const Header = () => {
       className="bg-dcard "
       ref={headerRef}>
       <div className=" gap-6 mx-auto max-w-[1024px] flex px-16 py-2.5 lg:justify-center justify-around items-center">
-        <a
-          href="/"
-          className="shrink-0">
-          <img
-            className="w-auto h-8"
-            src={Dcard_logo}
-          />
-        </a>
+        <Logo />
 
         <div className=" max-w-[500px] flex border border-dcard-border rounded-md flex-grow">
           <input
