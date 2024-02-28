@@ -1,7 +1,7 @@
 import SideMenuSection from "../Components/SideMenu/SideMenuSection"
 import SideMenuItem from "../Components/SideMenu/SideMenuItem"
 import { generalShortCuts, trendingCategory, selectedCaregory } from "../Data/SideMenu"
-import { useLayoutEffect, useRef, useState } from "react"
+import { useCallback, useLayoutEffect, useRef, useState } from "react"
 import Button from "../CVA/Button"
 import { IoIosArrowForward } from "react-icons/io"
 import { useHeightToBottom } from "../Hooks/useHeightToBottom"
@@ -20,9 +20,9 @@ const LeftSideMenu = () => {
     [isSideMenuOpen]
   )
 
-  function clickSideMenuBtn() {
+  const clickSideMenuBtn = useCallback(() => {
     setIsSideMenuOpen((prev) => !prev)
-  }
+  }, [])
 
   return (
     <>
