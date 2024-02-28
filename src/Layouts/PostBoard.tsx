@@ -7,7 +7,7 @@ import { usePostList } from "../Hooks/usePostList"
 import Labels from "../Components/Postboard/Labels"
 
 const TEST_QUERY = {
-  limit: 1,
+  limit: 3,
   delay: 250,
 }
 
