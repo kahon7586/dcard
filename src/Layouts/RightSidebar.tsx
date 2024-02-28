@@ -29,7 +29,7 @@ const RightSidebar = ({ boardInfo }: RightSidebarProps) => {
 
   return (
     <aside
-      className="hidden lg:flex flex-col bg-white px-2 py-4 gap-2 rounded-md m-4 mb-0 overflow-y-auto"
+      className="hidden lg:flex flex-col bg-white max-w-[300px] px-2 py-4 gap-2 rounded-md m-4 mb-0 overflow-y-auto"
       ref={menuRef}>
       <div className="flex text-[1.3rem] items-center gap-2">
         <Icon className="shrink-0" />
