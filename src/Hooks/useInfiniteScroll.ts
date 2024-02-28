@@ -1,32 +1,43 @@
-import { MutableRefObject, useEffect } from "react"
+import { MutableRefObject, useEffect, useState } from "react"
 import { throttle } from "../Utility/throttle"
-
-// useInfiniteScroll hook will operate callbackFn when user scroll down to the bottom of scrollRef
-// tirggerHeight could customize the rest of height to trigger callbackFn
-
-//  scrollHeight: the total height of element (include overflow part)
-//  scrollTop: the top position of visible part
-//  clientHeight: the height of visible part
 
 const TEST_THROTTLE_DELAY = 200
 
 export function useInfiniteScroll(
   scrollRef: MutableRefObject<HTMLDivElement | null>,
-  callbackFn: () => void,
-  tirggerHeight = 10
+  effectFn?: React.EffectCallback,
+  triggerHeight: number = 10
 ) {
+  // Using useInfiniteScroll like useState
+
+  // scrollRef: target div that expected to has inifinite scroll behavior
+  // effectFn: callbackFn will operate when reach bottom
+  // triggerHeight: height to trigger reach bottom handler
+
+  const [isBottom, setIsBottom] = useState(false)
+
   useEffect(() => {
     if (scrollRef.current === null) return
 
     const scrollDiv = scrollRef.current
 
+    function handleReachBottom() {
+      console.log("reach bottom!")
+      if (effectFn) effectFn()
+      setIsBottom(true)
+    }
+
     function scrollHandler() {
       const { scrollHeight, scrollTop, clientHeight } = scrollDiv
 
-      if (clientHeight + scrollTop > scrollHeight - tirggerHeight) {
-        console.log("reach bottom!")
-        callbackFn()
-      } else console.log("not bottom")
+      //  scrollHeight: the total height of element (include overflow part)
+      //  scrollTop: the top position of visible part
+      //  clientHeight: the height of visible part
+
+      const isReachBottom = clientHeight + scrollTop > scrollHeight - triggerHeight
+
+      if (isReachBottom) handleReachBottom()
+      else console.log("not bottom")
     }
 
     scrollDiv.addEventListener("scroll", throttle(scrollHandler, TEST_THROTTLE_DELAY))
@@ -35,4 +46,6 @@ export function useInfiniteScroll(
       scrollDiv.removeEventListener("scroll", throttle(scrollHandler, TEST_THROTTLE_DELAY))
     }
   }, [])
+
+  return [isBottom, setIsBottom] as [boolean, (state: boolean | (() => boolean)) => void]
 }
