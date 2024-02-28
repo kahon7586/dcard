@@ -28,7 +28,7 @@ export interface PostQuery {
 }
 
 export function usePostList(options: Partial<PostQuery>, postboardRef: MutableRefObject<HTMLDivElement | null>) {
-  const [isBottom, setIsBottom] = useInfiniteScroll(postboardRef, () => console.log("test reach")) // useState like
+  const [isBottom, setIsBottom] = useInfiniteScroll(postboardRef) // useState like
 
   const postList = useDataFetch(options, () => setIsBottom(false), [isBottom]) // useEffect like
 
