@@ -11,19 +11,7 @@ interface RightSidebarProps {
 const RightSidebar = ({ boardInfo }: RightSidebarProps) => {
   const { name, Icon, postPerDay, info, tags } = boardInfo
 
-  const [isInfoOpen, setIsInfoOpen] = useState(false)
-
   const menuRef = useRef<HTMLDivElement | null>(null)
-  const infoRef = useRef<HTMLDivElement | null>(null)
-
-  useLayoutEffect(() => {
-    setTimeout(() => {
-      const info = infoRef.current
-      if (info === null) return
-      if (isInfoOpen === true) info.classList.remove("truncate")
-      if (isInfoOpen === false) info.classList.add("truncate")
-    }, 500)
-  }, [isInfoOpen])
 
   useHeightToBottom(menuRef)
 
@@ -40,14 +28,14 @@ const RightSidebar = ({ boardInfo }: RightSidebarProps) => {
 
       <Collapse
         className="text-dcard-text-2 text-[0.9rem]"
-        duration="500ms">
+        duration={500}>
         {info}
       </Collapse>
 
       <Collapse
         className="text-dcard-text-2 text-[0.9rem] flex flex-wrap gap-x-3 gap-y-2"
         closeHeight="2rem"
-        duration="500ms">
+        duration={500}>
         {tags.map((tag) => (
           <Button
             className="text-sm rounded-full bg-dcard-btn-bg-gray text-black"
