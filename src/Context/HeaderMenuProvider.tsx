@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react"
+import { ReactNode, useState } from "react"
 import { HeaderMenuContext, HeaderMenuContextValue } from "./useHeaderMenu"
 
 interface HeaderMenuProviderProps {
@@ -7,7 +7,6 @@ interface HeaderMenuProviderProps {
 
 const HeaderMenuProvider = ({ children }: HeaderMenuProviderProps) => {
   const [isToggled, setIsToogled] = useState(false)
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 1024)
 
   function toggle() {
     setIsToogled((prev) => !prev)
