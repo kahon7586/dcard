@@ -1,42 +1,53 @@
-import { HTMLAttributes, ReactNode, useLayoutEffect, useRef, useState } from "react"
+import { HTMLAttributes, ReactNode, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react"
 import Button from "../CVA/Button"
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io"
+import React from "react"
 
 interface CollapseProps extends HTMLAttributes<HTMLDivElement> {
   closeHeight?: string
-  duration?: string
-  delay?: string
+  duration?: number
+  delay?: number
 }
 
 const Collapse = ({
   children,
   className,
   closeHeight = "1.5rem",
-  duration = "1000ms",
-  delay = "0",
+  duration = 1000,
+  delay = 0,
   ...props
 }: CollapseProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const collapseRef = useRef<HTMLDivElement | null>(null)
+  const scrollHeightRef = useRef<number | null>(null)
 
   useLayoutEffect(() => {
     const collapse = collapseRef.current
+    const scrollHeight = scrollHeightRef.current
     if (collapse === null) return
+    if (scrollHeight === null) scrollHeightRef.current = collapse.scrollHeight
+    // store the height of content if not being done
 
-    const scrollHeight = collapse.scrollHeight // the content of height
-    collapse.style.transitionDuration = duration
-    collapse.style.transitionDelay = delay
+    collapse.style.transitionDuration = duration.toString() + "ms"
+    collapse.style.transitionDelay = delay.toString() + "ms"
 
     if (isOpen) {
+      collapse.classList.remove("truncate")
       collapse.style.height = scrollHeight + "px"
     } else {
+      const truncateDelay = duration
+      // after collapse behavior is done, add truncate immediately
+      setTimeout(() => {
+        collapse.classList.add("truncate")
+      }, truncateDelay)
       collapse.style.height = closeHeight
     }
   }, [isOpen])
 
-  function handleClickArrow() {
+  const handleClickArrow = useCallback(() => {
     setIsOpen((prev) => !prev)
-  }
+  }, [])
+  // prevent re-render Button(child) when Collapse isOpen state change (parent)
 
   return (
     <section className="flex items-start justify-center">
@@ -57,4 +68,4 @@ const Collapse = ({
   )
 }
 
-export default Collapse
+export default React.memo(Collapse)
