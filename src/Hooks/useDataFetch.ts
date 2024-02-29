@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
-import { PostInfo, PostJSON, PostQuery } from "./usePostList"
+import { PostInfo, PostJSON, PostQuery } from "../Data/interfaceWithPost"
 
 function createPostQueryUrl(options: Partial<PostQuery>) {
   // exampleUrl https://dummyjson.com/posts?limit=10&skip=10&select=title,reactions,userId
@@ -24,12 +24,12 @@ function createPostQueryUrl(options: Partial<PostQuery>) {
   return basicUrl + queryUrl
 }
 
-const useDataFetch = (options: Partial<PostQuery>, effectFn: React.EffectCallback, deps: React.DependencyList) => {
+const useDataFetch = (callbackFn: React.EffectCallback, deps: readonly boolean[], options: Partial<PostQuery>) => {
   // using useDataFetch like useEffect with query option will return the dataList
 
+  // callbackFn: the effectFn to operate after data fetching request is done(resolved or rejected)
+  // deps: boolean[] that determine whether should send a request
   // options: query value
-  // effectFn: the callbackFn to operate when data fetching request is done(resolved or rejected)
-  // deps: values that determine whether should send a request
 
   const [postList, setPostList] = useState<PostInfo[] | null>(null)
 
@@ -72,7 +72,7 @@ const useDataFetch = (options: Partial<PostQuery>, effectFn: React.EffectCallbac
       } catch (err) {
         console.log(err)
       } finally {
-        effectFn()
+        callbackFn()
       }
     }
 

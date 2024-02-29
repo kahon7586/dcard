@@ -2,11 +2,13 @@ import { useRef } from "react"
 import Button from "../CVA/Button"
 import Post from "../Components/Postboard/Post"
 import { useHeightToBottom } from "../Hooks/useHeightToBottom"
-import { PostInfo, usePostList } from "../Hooks/usePostList"
+import { PostInfo } from "../Data/interfaceWithPost"
 import Labels from "../Components/Postboard/Labels"
 import PostboardProvider from "../Context/Postboard/PostboardProvider"
 import { usePostboardContext } from "../Context/Postboard/usePostboardContext"
 import TagSlider from "../Components/Postboard/TagSlider"
+import useDataFetch from "../Hooks/useDataFetch"
+import { useInfiniteScroll } from "../Hooks/useInfiniteScroll"
 
 const TEST_QUERY = {
   limit: 3,
@@ -34,9 +36,11 @@ const StickySection = () => {
               <span className="">For More</span>
             </div>
           </Button>
+          {/* Fancy effect Btn  */}
           <Button className="h-fit lg:hidden">New Post</Button>
         </div>
       </div>
+      {/* the part that contain postboard name, icon and follow btn */}
 
       <div className="flex justify-between items-center">
         <Labels />
@@ -70,18 +74,20 @@ const PostsSetcion = ({ postList }: PostsSetcionProps) => {
 }
 
 const Postboard = () => {
-  const PostboardRef = useRef<HTMLDivElement | null>(null)
+  const postboardRef = useRef<HTMLDivElement | null>(null)
 
-  const postList = usePostList(TEST_QUERY, PostboardRef)
+  const [isBottom, setIsBottom] = useInfiniteScroll(postboardRef) // useState like
+
+  const postList = useDataFetch(() => setIsBottom(false), [isBottom], TEST_QUERY) // useEffect like
   // the place where data fetcing and infinite scroll behavior live
 
-  useHeightToBottom(PostboardRef)
+  useHeightToBottom(postboardRef)
 
   return (
     <PostboardProvider>
       <div
         className="flex  bg-white flex-col min-w-[500px] max-w-[768px] mt-2 mx-2 overflow-y-auto"
-        ref={PostboardRef}>
+        ref={postboardRef}>
         <img
           className="bg-black object-cover object-bottom"
           src={"https://placehold.co/1280x427"}
