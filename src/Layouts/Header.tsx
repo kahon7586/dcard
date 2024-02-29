@@ -4,7 +4,7 @@ import Button from "../CVA/Button"
 import React from "react"
 import HeaderRightSetions from "../Components/HeaderMenu/HeaderRightSetions"
 
-const Logo = React.memo(() => {
+const Logo = () => {
   return (
     <a
       href="/"
@@ -15,7 +15,7 @@ const Logo = React.memo(() => {
       />
     </a>
   )
-})
+}
 
 const SearchBar = () => {
   return (
