@@ -76,10 +76,11 @@ const PostsSetcion = ({ postList }: PostsSetcionProps) => {
 const Postboard = () => {
   const postboardRef = useRef<HTMLDivElement | null>(null)
 
-  const [isBottom, setIsBottom] = useInfiniteScroll(postboardRef) // useState like
+  const [isBottom, setIsBottom] = useInfiniteScroll(postboardRef)
+  // useState like
 
-  const postList = useDataFetch(() => setIsBottom(false), [isBottom], TEST_QUERY) // useEffect like
-  // the place where data fetcing and infinite scroll behavior live
+  const postList = useDataFetch(() => setIsBottom(false), [isBottom], TEST_QUERY)
+  // useEffect like
 
   useHeightToBottom(postboardRef)
 
