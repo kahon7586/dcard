@@ -1,11 +1,11 @@
-import { BoardInfo } from "../Data/BoardInfo"
+import { PostboardInfo } from "../Data/PostboardInfo"
 import Button from "../CVA/Button"
-import { useLayoutEffect, useRef, useState } from "react"
+import { useRef } from "react"
 import { useHeightToBottom } from "../Hooks/useHeightToBottom"
 import Collapse from "../Components/Collapse"
 
 interface RightSidebarProps {
-  boardInfo: BoardInfo
+  boardInfo: PostboardInfo
 }
 
 const RightSidebar = ({ boardInfo }: RightSidebarProps) => {
