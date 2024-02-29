@@ -37,14 +37,12 @@ const SearchBar = () => {
 
 const Header = () => {
   return (
-    <header className="bg-dcard ">
-      <div className=" gap-6 mx-auto max-w-[1024px] flex px-16 py-2.5 lg:justify-center justify-around items-center">
-        <Logo />
+    <header className="bg-dcard gap-6 flex px-16 py-2.5 justify-around items-center">
+      <Logo />
 
-        <SearchBar />
+      <SearchBar />
 
-        <HeaderRightSetions />
-      </div>
+      <HeaderRightSetions />
     </header>
   )
 }
