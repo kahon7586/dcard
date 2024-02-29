@@ -1,18 +1,18 @@
-import { useHeaderMenu } from "../../Context/useHeaderMenu"
 import { menuItems } from "../../Data/Header"
 import Button from "../../CVA/Button"
+import { useSmallScreen } from "../../Hooks/useSmallScreen"
 
 interface SmallDropdownMenuProps {
-  isSmallScreen: boolean
+  toggled: boolean
 }
 
-const SmallDropdownMenu = ({ isSmallScreen }: SmallDropdownMenuProps) => {
-  const { isToggled } = useHeaderMenu()
+const SmallDropdownMenu = ({ toggled }: SmallDropdownMenuProps) => {
+  const isSmallScreen = useSmallScreen()
 
   return (
     <ul
       className={`absolute z-[98] border shadow-lg rounded-lg bg-white text-nowrap right-0 lg:right-[103px] top-[45px] ${
-        isToggled ? "block" : "hidden"
+        toggled ? "block" : "hidden"
       }`}>
       <div className="absolute top-[-9px] z-97 right-[6px] w-0 h-0 border-x-[10px] border-solid border-x-transparent border-b-[10px] border-b-white" />
       {isSmallScreen && (
