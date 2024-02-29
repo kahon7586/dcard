@@ -43,7 +43,7 @@ const TagSlider = () => {
   }, [translate])
 
   return (
-    <div className="lg:hidden w-auto max-w-[350px] border relative overflow-x-hidden">
+    <div className="lg:hidden w-auto max-w-[350px] relative overflow-x-hidden">
       <div
         className="transition-transform flex mx-8 gap-2 "
         ref={sliderRef}>
