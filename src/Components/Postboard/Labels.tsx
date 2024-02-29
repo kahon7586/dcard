@@ -1,12 +1,11 @@
-import React, { useState } from "react"
+import { usePostboardContext } from "../../Context/Postboard/usePostboardContext"
 
-const LABELS: string[] = ["Hot", "New", "Rules"]
 const Labels = () => {
-  const [currLabel, setCurrLabel] = useState(LABELS[0])
+  const { labelList, currLabel, setCurrLabel } = usePostboardContext()
 
   return (
     <div>
-      {LABELS.map((label) => (
+      {labelList.map((label) => (
         <button
           className={`px-4 py-2 text-lg text-dcard-text-2 hover:text-black ${
             currLabel === label ? "border-b-2 border-b-dcard" : null
