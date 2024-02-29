@@ -24,5 +24,5 @@ export function useSmallScreen(effectFn?: React.EffectCallback) {
     }
   }, [isSmall])
 
-  return [isSmall]
+  return isSmall
 }
