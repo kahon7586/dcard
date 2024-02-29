@@ -2,7 +2,7 @@ import { useRef } from "react"
 import Button from "../CVA/Button"
 import Post from "../Components/Postboard/Post"
 import { useHeightToBottom } from "../Hooks/useHeightToBottom"
-import { usePostList } from "../Hooks/usePostList"
+import { PostInfo, usePostList } from "../Hooks/usePostList"
 import Labels from "../Components/Postboard/Labels"
 import PostboardProvider from "../Context/Postboard/PostboardProvider"
 import { usePostboardContext } from "../Context/Postboard/usePostboardContext"
@@ -44,18 +44,39 @@ const StickySection = () => {
   )
 }
 
+interface PostsSetcionProps {
+  postList: PostInfo[] | null
+}
+
+const PostsSetcion = ({ postList }: PostsSetcionProps) => {
+  return (
+    <div>
+      {postList !== null ? (
+        postList.map((post) => (
+          <Post
+            post={post}
+            key={post.id}
+          />
+        ))
+      ) : (
+        <p>loading</p>
+      )}
+    </div>
+  )
+}
+
 const Postboard = () => {
   const PostboardRef = useRef<HTMLDivElement | null>(null)
 
   const postList = usePostList(TEST_QUERY, PostboardRef)
-  // the place where data_fetcing and infinite scroll behavior live
+  // the place where data fetcing and infinite scroll behavior live
 
   useHeightToBottom(PostboardRef)
 
   return (
     <PostboardProvider>
       <div
-        className="flex  bg-white flex-col min-w-[500px] max-w-[768px] mt-2 mx-2  overflow-y-auto"
+        className="flex  bg-white flex-col min-w-[500px] max-w-[768px] mt-2 mx-2 overflow-y-auto"
         ref={PostboardRef}>
         <img
           className="bg-black object-cover object-bottom"
@@ -64,18 +85,7 @@ const Postboard = () => {
 
         <StickySection />
 
-        <div>
-          {postList !== null ? (
-            postList.map((post) => (
-              <Post
-                post={post}
-                key={post.id}
-              />
-            ))
-          ) : (
-            <p>loading</p>
-          )}
-        </div>
+        <PostsSetcion postList={postList} />
       </div>
     </PostboardProvider>
   )
