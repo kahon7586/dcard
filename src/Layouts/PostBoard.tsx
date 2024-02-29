@@ -6,6 +6,7 @@ import { PostInfo, usePostList } from "../Hooks/usePostList"
 import Labels from "../Components/Postboard/Labels"
 import PostboardProvider from "../Context/Postboard/PostboardProvider"
 import { usePostboardContext } from "../Context/Postboard/usePostboardContext"
+import TagSlider from "../Components/Postboard/TagSlider"
 
 const TEST_QUERY = {
   limit: 3,
@@ -37,7 +38,10 @@ const StickySection = () => {
         </div>
       </div>
 
-      <Labels />
+      <div className="flex justify-between items-center">
+        <Labels />
+        <TagSlider />
+      </div>
 
       <hr />
     </div>
