@@ -22,7 +22,6 @@ export function useInfiniteScroll(
     const scrollDiv = scrollRef.current
 
     function handleReachBottom() {
-      console.log("reach bottom!")
       if (effectFn) effectFn()
       setIsBottom(true)
     }
@@ -37,7 +36,6 @@ export function useInfiniteScroll(
       const isReachBottom = clientHeight + scrollTop > scrollHeight - triggerHeight
 
       if (isReachBottom) handleReachBottom()
-      else console.log("not bottom")
     }
 
     scrollDiv.addEventListener("scroll", throttle(scrollHandler, TEST_THROTTLE_DELAY))

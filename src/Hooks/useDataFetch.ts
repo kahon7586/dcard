@@ -41,8 +41,6 @@ const useDataFetch = (callbackFn: React.EffectCallback, deps: readonly boolean[]
     // 1. when user reach the end.
     // 2. when postList is not initially loaded.
 
-    console.log("prevPostNum: " + prevPostNumRef.current)
-
     const abortController = new AbortController()
     // if a new request sended before the previous request complete,
     // the old request will be canceled by abortController

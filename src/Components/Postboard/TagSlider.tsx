@@ -15,7 +15,6 @@ const TagSlider = () => {
   const sliderRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    console.log("currTranslate: " + translate)
     const slider = sliderRef.current
     if (slider === null) return
     slider.style.transform = `translate(-${translate}px, 0px)`
