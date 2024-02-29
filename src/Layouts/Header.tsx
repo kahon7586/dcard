@@ -69,10 +69,11 @@ const Header = () => {
         <div>
           <div className="relative">
             <Button
-              className="lg:hidden flex border border-dcard-border rounded-md"
+              className="lg:hidden flex size-8 hover:bg-dcard-light rounded-md"
+              variant="ghost"
               size="icon"
               onClick={toggle}>
-              <Hamburger />
+              <Hamburger className="h-full w-full p-1" />
             </Button>
             <SmallHeaderMenu isSmallScreen={isSmallScreen} />
           </div>
