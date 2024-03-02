@@ -1,5 +1,6 @@
 import { IconType } from "react-icons"
 import Button from "../../CVA/Button"
+import React from "react"
 
 interface SideMenuItemProps {
   content: string
@@ -19,4 +20,4 @@ const SideMenuItem = ({ content, Icon, path }: SideMenuItemProps) => {
   )
 }
 
-export default SideMenuItem
+export default React.memo(SideMenuItem)

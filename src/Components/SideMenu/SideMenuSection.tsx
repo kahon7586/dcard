@@ -17,4 +17,4 @@ const SideMenuSection = ({ children, title }: SideMenuSectionProps) => {
   )
 }
 
-export default SideMenuSection
+export default React.memo(SideMenuSection)
